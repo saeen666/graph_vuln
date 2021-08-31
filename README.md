@@ -18,6 +18,10 @@ Code related to graph generation from source code and identifying vulnerability 
     - Joern
     - graphviz
 
+## Use the CFG_code_ultimate.ipynb to run all of the following functions
+- I have commented the source code to make it more clear
+- Please place the tokenizer, dataset JSON file, and notebook file in the same directory
+- Contact me if you find any bug or issue
 
  ## 1. Generate CFG using the following method
 - make dir for each project i.e. in our case it is will be two folders one for FFmpeg and other one is for qemu defined by variable path_code
