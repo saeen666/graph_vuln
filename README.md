@@ -22,7 +22,7 @@ Code related to graph generation from source code and identifying vulnerability 
 - I have commented the source code to make it more clear
 - Please place the tokenizer, dataset JSON file, and notebook file in the same directory
 - Contact me if you find any bug or issue
-- You can download the code from [here](https://drive.google.com/open?id=1x6hoF7G-tSYxg8AFybggypLZgMGDNHfF)
+- You can download the data in JSON format from [here](https://drive.google.com/open?id=1x6hoF7G-tSYxg8AFybggypLZgMGDNHfF)
 
  ## 1. Generate CFG using the following method
 - make dir for each project i.e. in our case it is will be two folders one for FFmpeg and other one is for qemu defined by variable path_code
