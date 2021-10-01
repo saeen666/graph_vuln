@@ -1,4 +1,4 @@
-# This is the official guide to devign. Just make sure their dependencies are installed
+# This is the official guide to devign. Just make sure their dependencies are installed. Although I have made changes to make it run on latest libraries.
 
 ## Folllowing are the changes that I made to run on our dataset:
 - It can be used to navigate through the code. I have made some changes to this code. It includes changing the max_node dimension to consider for training. Word2vec hyperparameters etc
@@ -8,8 +8,8 @@
 - Please specify the path of cfg to run these experiments. In our case it is present in anwar/software_vulnerability/tokens/cfg_data.pkl
 
 ### There are some things to be done
--Using the saved word2vec model instead of training them again and again
--The cfg file is saved containing input data points and targets after word2vec for training (different from cfg_data.pkl). This file only contains data points and target instead of the whole graph with node-level information
+- Using the saved word2vec model instead of training them again and again
+- The cfg file is saved containing input data points and targets after word2vec for training (different from cfg_data.pkl). This file only contains data points and target instead of the whole graph with node-level information
 - If the programming crash we should run code from where cfg_file is saved. I don't know if it is possible because if we are feeding new data the cfg_file
 -Please let me know if there is something you don't understand
 
