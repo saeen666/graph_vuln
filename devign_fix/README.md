@@ -1,3 +1,20 @@
+#This is the official guide to devign. Just make sure their dependencies are installed
+
+##Folllowing are the changes that I made to run on our dataset:
+- It can be used to navigate through the code. I have made some changes to this code. It includes changing the max_node dimension to consider for training. Word2vec hyperparameters etc
+- This code tokenize the code on node level using their own defined tokenizer
+- The code uses pre-defined hyperparameters for their model. You can make changes by changing values in the configs.json file
+- You don't need to run the whole code again just run the file "devign-fixed.ipynb" and it will use the pickled file we constructed in our experiments to run the testing/training
+- Please specify the path of cfg to run these experiments. In our case it is present in anwar/software_vulnerability/tokens/cfg_data.pkl
+
+###There are some things to be done
+-Using the saved word2vec model instead of training them again and again
+-The cfg file is saved containing input data points and targets after word2vec for training (different from cfg_data.pkl). This file only contains data points and target instead of the whole graph with node-level information
+- If the programming crash we should run code from where cfg_file is saved. I don't know if it is possible because if we are feeding new data the cfg_file
+-Please let me know if there is something you don't understand
+
+
+
 # Devign
 
 Implementation of Devign Model in Python with code for processing the dataset and generation of Code Property Graphs.
@@ -61,15 +78,15 @@ needs to match ```"in_channels"```, under ```"devign" -> "model" -> "conv_args" 
 * The embedding size is equal to Word2Vec vector size plus 1.
 * When executing the **Create** task, a directory named ```joern``` is created and deleted automatically under ```'project'\data\```.
 * The dataset split for modeling during **Process** task is done under ```src/data/datamanger.py```. The sets are balanced and the train/val/test ratio are 0.8/0.1/0.1 respectively.
-* The script **graph-for-funcs.sc** queries the CPG graphs from Joern. That script has a minor change to make it possible to track the files to the CPGs generated. The last time was failing because dependencies in Joern changed and needed the updated version. I assume you can find it in their latest version. I suggested you look at issue **#3**. Those CPGs are saved in a JSON file, check function "joern_create" line 48, it prints the CPG created in Joern to a JSON file **... .toString() |> \"{json_out}\"**,  and that file is processed by the function "json_process". Both those functions are in the file **devign/src/prepare/cpg_generator.py**. If you have troubles creating the CPG JSON file with Joern, I advise you to do what you are trying manually in Joern. Create a new project pointing to the dataset folder containing all the files and query the CPG with the  **graph-for-funcs.sc** script that's built-in, then export it to a file with .toString() |>. Joern commands are quite easy to understand and they have good support on Gitter. As well, follow the [commit](https://github.com/epicosy/devign/commit/87d11378eabaeea3a3c6f2bc5748a6eaf0e32b3c) to understand the changes I've previously made.
+* The script **graph-for-funcs.sc** queries the CPG graphs from Joern. That script has a minor change to make it possible to track the files to the CPGs generated. The last time was failing because dependencies in Joern changed and needed the updated version. I assume you can find it in their latest version. I suggested you look at issue **#3**. That CPGs are saved in a JSON file, check function "joern_create" line 48, it prints the CPG created in Joern to a JSON file **... .toString() |> \"{json_out}\"**,  and that file is processed by the function "json_process". Both those functions are in the file **devign/src/prepare/cpg_generator.py**. If you have trouble creating the CPG JSON file with Joern, I advise you to do what you are trying manually in Joern. Create a new project pointing to the dataset folder containing all the files and query the CPG with the  **graph-for-funcs.sc** script that's built-in, then export it to a file with .toString() |>. Joern commands are quite easy to understand and they have good support on Gitter. As well, follow the [commit](https://github.com/epicosy/devign/commit/87d11378eabaeea3a3c6f2bc5748a6eaf0e32b3c) to understand the changes I've previously made.
 * Tested on Ubuntu 18.04/19.04
 
 ### Setup
 
 ---
-###### __For now this project is not pip installable. With the proper use cases will be implemented.__
+###### __For now this project is not pip installable. With the proper use, cases will be implemented.__
 
-This section gives the steps, explanations and examples for getting the project running.
+This section gives the steps, explanations, and examples for getting the project running.
 #### 1) Clone this repo
 
 ``` console
@@ -80,10 +97,10 @@ $ git clone https://github.com/epicosy/devign/devign.git
 
 #### 3) Configure the project
 Verify you have the correct directory structure by matching with the ```"paths"``` in the configurations file ```configs.json```.
-The dataset related files that are generated are saved under those paths. 
+The dataset-related files that are generated are saved under those paths. 
 #### 4) Joern
 This step is only necessary for the **Create** task.
-Follow the instructions on [Joern's documentation page](https://joern.io/docs/) and install Joern's command line tools
+Follow the instructions on [Joern's documentation page](https://joern.io/docs/) and install Joern's command-line tools
 under ```'project'\joern\joern-cli\ ```.
 <br/>
 
@@ -95,14 +112,14 @@ under ```'project'\joern\joern-cli\ ```.
 ├── README.md                       <- The top-level README for developers using this project.
 ├── data
 │   ├── cpg                         <- Dataset with CPGs.
-│   ├── input                       <- Cannonical dataset for modeling.
+│   ├── input                       <- Canonical dataset for modeling.
 │   ├── model                       <- Trained models.
 │   ├── raw                         <- The original, immutable data dump.
 │   ├── tokens                      <- Tokens dataset files generated from the raw data functions.
 │   └── w2v                         <- Word2Vec model files for initial embeddings.
 │
 ├── joern
-│   ├── joern-cli                   <- Joern command line tools for creating and analyzing code property graphs.
+│   ├── joern-cli                   <- Joern command-line tools for creating and analyzing code property graphs.
 │   └── graphs-for-funcs.sc         <- Script that returns in Json format the AST, CGF, and PDG for each method 
 │                                       contained in the loaded CPG.
 │
@@ -122,7 +139,7 @@ under ```'project'\joern\joern-cli\ ```.
 │   ├── process                     <- Scripts for modeling and predictions.
 │   │   ├── __init__.py             <- Makes process a Python package.
 │   │   ├── devign.py               <- Module that implements the devign model.
-│   │   ├── loader_step.py          <- Module for one epoch iteration over dataset
+│   │   ├── loader_step.py          <- Module for one epoch iteration over the dataset
 │   │   ├── model.py                <- Module that implements the devign neural network.
 │   │   ├── modeling.py             <- Module for training and prediction the model.
 │   │   ├── step.py                 <- Module that performs a forward step on a batch for train/val/test loop.
@@ -135,7 +152,7 @@ under ```'project'\joern\joern-cli\ ```.
 │       ├── log.py                  <- Module for logging modules messages.
 │       ├── functions               <- Auxiliar functions for processing.
 │       │   ├── __init__.py         <- Makes functions a Python package
-│       │   ├── cpg.py              <- Module with auxiliar functions for CPGs.
+│       │   ├── cpg.py              <- Module with auxiliary functions for CPGs.
 │       │   ├── digraph.py          <- Module for creating digraphs from nodes.
 │       │   └── parase.py           <- Module for parsing source code into tokens.
 │       │ 
@@ -206,17 +223,15 @@ $ python main.py -c -e -p.
 ```
 
 For each task, verify that the correct files are in the respective folders.
-For example, executing the **Process** task requires the input datasets that contain 
-the embedded graphs with the associated labels.
+For example, executing the **Process** task requires the input datasets that contain the embedded graphs with the associated labels.
 
 #### Create Task
-This is the first task where the dataset is filtered (optionally) and augmented with a column that 
-contains the respective Code Property Graph (CPG).
+This is the first task where the dataset is filtered (optionally) and augmented with a column that contains the respective Code Property Graph (CPG).
 <br/>
 <br/>
 Functions in the dataset are written to files into a target directory which Joern is queried with for creating the CPG. 
 After the CPG creation, Joern is queried with the script "graph-for-funcs.sc" which creates the graphs from the CPG.
-Those are returned in JSON format, containing all the functions with the respective AST, CFG and PDG graphs.
+Those are returned in JSON format, containing all the functions with the respective AST, CFG, and PDG graphs.
 
 Execute with:
 
@@ -227,8 +242,7 @@ Filtering the dataset can be done with ```data.apply_filter(raw: pandas.Datafram
 under ```create_task``` function.
 
 #### Embed Task
-This task transforms the source code functions into tokens which are used to generate and train the word2vec model 
-for the initial embeddings. The nodes embeddings are done as explained in the paper, for now just for the AST: 
+This task transforms the source code functions into tokens which are used to generate and train the word2vec model for the initial embeddings. The nodes embeddings are done as explained in the paper, for now just for the AST: 
 ![Node Representation](https://lh6.googleusercontent.com/DcfjhgnCH23Zsw7FZ5_WFr2M-4Tzn9uO8U32QpbaUBiBOjfi3-yRE0mDT7SEIEe4OorV8-BvDppk3CGxY8AfPxCAdeZEkkf47K9X_W-mfc5QSCB8VIU=w1175)
 
 Execute with:
@@ -279,8 +293,7 @@ Tokens:
 
  
 #### Process Task
-In this task the previous transformed dataset is split into train, validation and test sets which are
- used to train an evaluate the model. The accuracy from training output is **softmax accuracy**.
+In this task, the previously transformed dataset is split into train, validation, and test sets which are used to train and evaluate the model. The accuracy from training output is **softmax accuracy**.
 
 Execute with:
 ``` console
