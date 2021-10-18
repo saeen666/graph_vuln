@@ -9,7 +9,7 @@ import numpy as np
 
 graph_type = 'cfg'
 path_code = pathlib.Path('dataset1/')                       
-joern_path = '/home/anwar/software_vulnerability/joern-cli/'
+joern_path = '/home/anwar/software_vulnerability/joern-cli/' # ver 1.1.320
 
 # iterate over each group/project
 for folder in tqdm(glob.glob('{}/*'.format(path_code))):
