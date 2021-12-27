@@ -24,7 +24,7 @@ Code related to graph generation from source code and identifying vulnerability 
 - *You can download the data in JSON format from [here](https://drive.google.com/open?id=1x6hoF7G-tSYxg8AFybggypLZgMGDNHfF)**
 - Contact me if you find any bug or issue
 
-# Use the jupyter notebook "CFG_code_ultimate.ipynb" to run all of the following functions:
+# Use the jupyter notebook "CFG_code_complete.ipynb" to run all of the following functions:
 
 
 # Generating CFG from devign dataset and training it on GIN
