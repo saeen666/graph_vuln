@@ -71,3 +71,6 @@ Code related to graph generation from source code and identifying vulnerability 
 
 # Generating word2vec training on big_vul dataset
 - use all_three_tasks.ipynb for the tasks. Please read the above description before running this code. 
+
+# models
+- use GNN.ipynb to get the model and perform training/testing on the model
